@@ -1,7 +1,7 @@
 package stringslice
 
 //cartesianProductPlusPlus: Perform cartesian product between a slice of string slice and a string slice. Beware: complexity -> quadratic
-func cartesianProduct(list1 [][]string, list2 []string) (product [][]string) {
+func CartesianProduct(list1 [][]string, list2 []string) (product [][]string) {
 	var lenProduct int
 	if len(list1) == 1 {
 		lenProduct = len(list1) * (len(list2) - 1)
