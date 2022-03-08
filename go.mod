@@ -1,3 +1,3 @@
-module github.com/ariary/go-utils/v2
+module github.com/ariary/go-utils
 
 go 1.17
