@@ -36,12 +36,12 @@ func Encode(b []byte) string {
 }
 
 //Decode: base64 decoding
-func Decode(s string) []byte {
+func Decode(s string) ([]byte, error) {
 	data, err := base64.StdEncoding.DecodeString(s)
 	if err != nil {
 		panic(err)
 	}
-	return data
+	return data, err
 }
 
 // Encrypt method is to encrypt or hide any classified text
