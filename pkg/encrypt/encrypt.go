@@ -3,31 +3,31 @@ package encryption
 import (
 	"crypto/aes"
 	"crypto/cipher"
-	"crypto/md5"
+	"crypto/rand"
+	"crypto/sha256"
 	"encoding/base64"
-	"encoding/hex"
 	"io"
-	"math/rand"
+	mrand "math/rand"
+
 	"time"
 )
 
 //GenerateRandom: generate a "random" string of 6 alphanumeric charcaters
 func GenerateRandom() string {
-	rand.Seed(time.Now().UnixNano())
+	mrand.Seed(time.Now().UnixNano())
 	var characters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789")
 	b := make([]rune, 6)
 	for i := range b {
-		b[i] = characters[rand.Intn(len(characters))]
+		b[i] = characters[mrand.Intn(len(characters))]
 	}
 	return string(b)
 }
 
 var bytes = []byte{35, 46, 57, 24, 85, 35, 24, 74, 87, 35, 88, 98, 66, 32, 14, 05}
 
-func createHash(key string) string {
-	hasher := md5.New()
-	hasher.Write([]byte(key))
-	return hex.EncodeToString(hasher.Sum(nil))
+func createHash(key string) []byte {
+	hash := sha256.Sum256([]byte(key))
+	return hash[:]
 }
 
 //Encode: base64 encoding of string
