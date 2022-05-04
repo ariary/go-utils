@@ -22,6 +22,17 @@ func GenerateRandom() string {
 	return string(b)
 }
 
+//GenerateRandomWithLength: generate a "random" string of specified length alphanumeric charcaters + some special characters
+func GenerateRandomStringWithLength(length int) string {
+	rand.Seed(time.Now().UnixNano())
+	var characters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789=!?,:;$#&")
+	b := make([]rune, length)
+	for i := range b {
+		b[i] = characters[rand.Intn(len(characters))]
+	}
+	return string(b)
+}
+
 var bytes = []byte{35, 46, 57, 24, 85, 35, 24, 74, 87, 35, 88, 98, 66, 32, 14, 05}
 
 func createHash(key string) string {
