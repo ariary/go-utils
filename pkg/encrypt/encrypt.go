@@ -4,31 +4,32 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/md5"
+	crypto_rand "crypto/rand"
 	"encoding/base64"
 	"encoding/hex"
 	"io"
-	"math/rand"
+	math_rand "math/rand"
 	"time"
 )
 
 //GenerateRandom: generate a "random" string of 6 alphanumeric charcaters
 func GenerateRandom() string {
-	rand.Seed(time.Now().UnixNano())
+	math_rand.Seed(time.Now().UnixNano())
 	var characters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789")
 	b := make([]rune, 6)
 	for i := range b {
-		b[i] = characters[rand.Intn(len(characters))]
+		b[i] = characters[math_rand.Intn(len(characters))]
 	}
 	return string(b)
 }
 
 //GenerateRandomWithLength: generate a "random" string of specified length alphanumeric charcaters + some special characters
 func GenerateRandomStringWithLength(length int) string {
-	rand.Seed(time.Now().UnixNano())
+	math_rand.Seed(time.Now().UnixNano())
 	var characters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789=!?,:;$#&")
 	b := make([]rune, length)
 	for i := range b {
-		b[i] = characters[rand.Intn(len(characters))]
+		b[i] = characters[math_rand.Intn(len(characters))]
 	}
 	return string(b)
 }
@@ -63,7 +64,7 @@ func Encrypt(text, Secret string) (string, error) {
 		panic(err.Error())
 	}
 	nonce := make([]byte, gcm.NonceSize())
-	if _, err = io.ReadFull(rand.Reader, nonce); err != nil {
+	if _, err = io.ReadFull(crypto_rand.Reader, nonce); err != nil {
 		panic(err.Error())
 	}
 	cipherText := gcm.Seal(nonce, nonce, []byte(text), nil)
