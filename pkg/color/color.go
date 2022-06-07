@@ -37,6 +37,8 @@ var (
 	Italic     = Color("\033[3m%s\033[0m")
 	Underlined = Color("\033[4m%s\033[24m")
 	Blink      = Color("\033[5m%s\033[24m")
+	Reverse    = Color("\033[7m%s\033[24m")
+	Hidden     = Color("\033[8m%s\033[24m")
 )
 
 func Color(colorString string) func(...interface{}) string {
